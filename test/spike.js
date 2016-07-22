@@ -1,5 +1,6 @@
 const assert = require('assert');
 const mocha = require('mocha');
+require('co-mocha');
 
 describe('stockfetch', function () {
   it('happypath', function () {
@@ -13,11 +14,15 @@ describe('stockfetch', function () {
       return Promise.resolve([10, 20, 30]);
     };
 
-    const printReport = function(prices) {
+    const printReport = function (prices) {
       assert.deepEqual(prices, [10, 20, 30]);
     };
 
-    const stockfetch = require('../lib/stockfetch')({getTickersFromFile, getTickerPricesFromYahoo, printReport});
+    const stockfetch = require('../lib/stockfetch')({
+      getTickersFromFile,
+      getTickerPricesFromYahoo,
+      printReport
+    });
 
     return stockfetch('./symbolsFile');
   });
@@ -25,7 +30,7 @@ describe('stockfetch', function () {
 });
 
 describe('getTickerFromFile', function () {
-  it('happypath', function () {
+  it('happypath', function *() {
     const readFile = path => {
       assert.equal(path, './symbolsFile');
       return Promise.resolve('A\nB\nC\n');
@@ -33,11 +38,12 @@ describe('getTickerFromFile', function () {
 
     const extractTickers = tickersString => {
       assert.equal(tickersString, 'A\nB\nC\n');
-      return Promise.resolve(['A', 'B', 'C']);
+      return ['A', 'B', 'C'];
     };
 
-    const getTickersFromFile = require('../lib/getTickersFromFile')({readFile, extractTickers});
+    const getTickersFromFile = require('../lib/getTickersFromFile')({ readFile, extractTickers });
 
-    return getTickersFromFile('./symbolsFile');
+    const tickers = yield getTickersFromFile('./symbolsFile');
+    assert.deepEqual(tickers, ['A', 'B', 'C']);
   });
 });
