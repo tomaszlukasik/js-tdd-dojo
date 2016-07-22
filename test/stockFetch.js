@@ -1,10 +1,11 @@
 const assert = require('assert');
+const mocha = require('mocha');
 
 describe('StockFetch', () => {
-  it('tries to load stockfetch', function() {
-    const stockfetch = require('../stockfetch');
+  it('tries to load stockfetch', function () {
+    const stockfetch = require('../lib/stockfetch');
   });
-  it('should return proper output for happy path', function() {
+  it('should return proper output for happy path', function () {
     const getTickersFromFileMock = () => [
       'GOOGLE', 'YAHOO'
     ];
@@ -15,7 +16,7 @@ describe('StockFetch', () => {
       'YAHOO 777'
     ];
 
-    const Stockfetch = require('../stockfetch');
+    const Stockfetch = require('../lib/stockfetch');
     const stockfetch = new Stockfetch(getTickersFromFileMock, getTickerPricesFromYahoo);
 
     const result = stockfetch.run();
