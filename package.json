@@ -22,6 +22,7 @@
     "testdouble": "^1.6.0"
   },
   "dependencies": {
+    "good-guy-http": "^1.7.2",
     "lodash.zip": "^4.0.0"
   }
 }
