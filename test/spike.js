@@ -8,7 +8,7 @@ describe('stockfetch', () => {
     const getTickersFromFileMock = () => [
         'GOOGLE', 'YAHOO'
     ];
-    const getTickerPricesFromYahoo = () => input => {
+    const getTickerPricesFromYahoo = (input) => {
       const data = {
         GOOGLE: 666,
         YAHOO: 777
@@ -27,5 +27,19 @@ describe('stockfetch', () => {
 
     const result = stockfetch.run();
     assert.deepEqual(result, expectedOutput);
+  });
+  it('should return tickers from file', function () {
+    const readFile = (data) => {
+      assert.equal(data, 'file');
+      return Promise.resolve(['fileData']);
+    };
+    const extractTickers = (data) => {
+      assert.equal(data, 'fileData');
+      return Promise.resolve('yo');
+    };
+
+    const getTickersFromFileMock = require('../getTickersFromFile')({ readFile, extractTickers });
+
+    return getTickersFromFileMock('file');
   });
 });
