@@ -8,9 +8,15 @@ describe('stockfetch', () => {
     const getTickersFromFileMock = () => [
         'GOOGLE', 'YAHOO'
     ];
-    const getTickerPricesFromYahoo = () => [
-        666, 777
-    ];
+    const getTickerPricesFromYahoo = () => input => {
+      const data = {
+        GOOGLE: 666,
+        YAHOO: 777
+      };
+
+      return data[input];
+    };
+
     const expectedOutput = [
         'GOOGLE 666',
         'YAHOO 777'
