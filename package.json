@@ -18,6 +18,8 @@
   "homepage": "https://github.com/tomaszlukasik/js-tdd-dojo#readme",
   "devDependencies": {
     "co-mocha": "^1.1.2",
-    "mocha": "^2.5.3"
+    "good-guy-http": "^1.7.2",
+    "mocha": "^2.5.3",
+    "testdouble": "^1.6.0"
   }
 }
