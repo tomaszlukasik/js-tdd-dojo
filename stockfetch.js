@@ -4,7 +4,6 @@ function Stockfetch(getTickers, getTickerPrices) {
         return tickers.map((val) => {
             return val + ' ' + getTickerPrices(val);
         });
-
     }
 }
 

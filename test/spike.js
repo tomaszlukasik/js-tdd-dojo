@@ -32,7 +32,7 @@ describe('getTickerFromFile', function () {
     };
 
     const extractTickers = tickersString => {
-      assert.equals(tickersString, 'A\nB\nC\n');
+      assert.equal(tickersString, 'A\nB\nC\n');
       return Promise.resolve(['A', 'B', 'C']);
     };
 
