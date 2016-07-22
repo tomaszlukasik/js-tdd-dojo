@@ -14,7 +14,7 @@ describe('Get tickets from file', () => {
       assert.equal(data, 'fileData');
       return Promise.resolve('yo');
     };
-    const getTickersFromFileMock = require('../lib/getTickersFromFile')({ readFile, extractTickers });
+    const getTickersFromFileMock = require('../../lib/file/getTickersFromFile')({ readFile, extractTickers });
 
     // when
     const tickers = yield getTickersFromFileMock('file');
