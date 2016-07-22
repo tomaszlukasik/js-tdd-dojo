@@ -1,42 +1,43 @@
 const assert = require('assert');
+const mocha = require('mocha');
 
-
-describe('stockfetch', () => {
-  it('tries to load stockfetch', function() {
-    const stockfetch = require('../stockfetch');
-  });
-  it('should return proper output for happy path', function() {
-    const getTickersFromFileMock = () => [
-        'GOOGLE', 'YAHOO'
-    ];
-    const getTickerPricesFromYahoo = input => {
-      const data = {
-        GOOGLE: 666,
-        YAHOO: 777
-      };
-
-      return data[input];
+describe('stockfetch', function () {
+  it('happypath', function () {
+    const getTickersFromFile = function (file) {
+      assert.equal(file, './symbolsFile');
+      return Promise.resolve(['A', 'B', 'C']);
     };
 
-    const expectedOutput = [
-        'GOOGLE 666',
-        'YAHOO 777'
-    ];
-
-    const Stockfetch = require('../stockfetch');
-    const stockfetch = new Stockfetch(getTickersFromFileMock, getTickerPricesFromYahoo);
-
-    const result = stockfetch.run();
-    assert.deepEqual(result, expectedOutput);
-  });
-
-  it('getTickersFromFile', function() {
-    const input = {
-      readFile: () => 'A\nB\nC\n',
-      extractTickers: stringInput => ['A', 'B', 'C'],
+    const getTickerPricesFromYahoo = function (tickers) {
+      assert.deepEqual(tickers, ['A', 'B', 'C']);
+      return Promise.resolve([10, 20, 30]);
     };
 
-    const getTickerFromFile = require('../getTickerFromFile')(input);
-    assert.deepEqual(getTickerFromFile.get(), ['A', 'B', 'C']);
+    const printReport = function(prices) {
+      assert.deepEqual(prices, [10, 20, 30]);
+    };
+
+    const stockfetch = require('../lib/stockfetch')({getTickersFromFile, getTickerPricesFromYahoo, printReport});
+
+    return stockfetch('./symbolsFile');
+  });
+
+});
+
+describe('getTickerFromFile', function () {
+  it('happypath', function () {
+    const readFile = path => {
+      assert.equal(path, './symbolsFile');
+      return Promise.resolve('A\nB\nC\n');
+    };
+
+    const extractTickers = tickersString => {
+      assert.equals(tickersString, 'A\nB\nC\n');
+      return Promise.resolve(['A', 'B', 'C']);
+    };
+
+    const getTickersFromFile = require('../lib/getTickersFromFile')({readFile, extractTickers});
+
+    return getTickersFromFile('./symbolsFile');
   });
 });
