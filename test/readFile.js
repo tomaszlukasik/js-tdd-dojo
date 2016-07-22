@@ -28,7 +28,7 @@ describe('Read file', () => {
       assert.ok(e);
     }
   });
-  it('should read file', function *() {
+  it('[unit-test] should read file', function *() {
     // given
     const file = __dirname + '/symbols';
     const mockedFs = {
@@ -44,7 +44,7 @@ describe('Read file', () => {
 
     assert.ok(data);
   });
-  it('should throw error', function *() {
+  it('[unit-test] should throw error', function *() {
     // given
     const file = __dirname + '/fileDoesNotExist';
     const mockedFs = {
