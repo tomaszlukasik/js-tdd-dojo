@@ -21,7 +21,11 @@ describe('getTickerPriceFromYahoo', function () {
             return 10;
         };
 
-        const result = yield getTickerPrice({fetchPrice, getCsv, extractPrice})('A');
+        const errorHandler = function(e) {
+            return 404;
+        };
+
+        const result = yield getTickerPrice({fetchPrice, getCsv, extractPrice, errorHandler})('A');
 
         assert.deepEqual(result, ['A', 10]);
     });
