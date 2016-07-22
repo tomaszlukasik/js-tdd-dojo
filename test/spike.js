@@ -8,7 +8,7 @@ describe('stockfetch', () => {
     const getTickersFromFileMock = () => [
         'GOOGLE', 'YAHOO'
     ];
-    const getTickerPricesFromYahoo = () => input => {
+    const getTickerPricesFromYahoo = input => {
       const data = {
         GOOGLE: 666,
         YAHOO: 777
