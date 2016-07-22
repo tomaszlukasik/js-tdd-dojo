@@ -6,20 +6,17 @@ describe('StockFetch', () => {
     const stockfetch = require('../lib/stockfetch');
   });
   it('should return proper output for happy path', function () {
-    const getTickersFromFileMock = () => [
+    const getTickersFromFileMock = () => Promise.resolve([
       'GOOGLE', 'YAHOO'
-    ];
-    const getTickerPricesFromYahoo = (input) => [666, 777];
-
-    const expectedOutput = [
-      'GOOGLE 666',
-      'YAHOO 777'
-    ];
+    ]);
+    const getTickerPricesFromYahoo = (input) => Promise.resolve([666, 777]);
+    const printReport = (results) => {
+      assert.deepEqual(results, [666, 777]);
+    };
 
     const Stockfetch = require('../lib/stockfetch');
-    const stockfetch = new Stockfetch(getTickersFromFileMock, getTickerPricesFromYahoo);
+    const stockfetch = new Stockfetch(getTickersFromFileMock, getTickerPricesFromYahoo, printReport);
 
-    const result = stockfetch.run();
-    assert.deepEqual(result, expectedOutput);
+    return stockfetch.run();
   });
 });

@@ -15,7 +15,7 @@ describe('Extract price from response', () => {
     };
 
     // when
-    const price = extractPrice(response);
+    const price = extractPrice([response]);
 
     // then
     assert.equal(price, 740.359985);
