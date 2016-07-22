@@ -1,5 +1,6 @@
 const assert = require('assert');
 
+
 describe('stockfetch', () => {
   it('tries to load stockfetch', function() {
     const stockfetch = require('../stockfetch');
@@ -27,5 +28,15 @@ describe('stockfetch', () => {
 
     const result = stockfetch.run();
     assert.deepEqual(result, expectedOutput);
+  });
+
+  it('getTickersFromFile', function() {
+    const input = {
+      readFile: () => 'A\nB\nC\n',
+      extractTickers: stringInput => ['A', 'B', 'C'],
+    };
+
+    const getTickerFromFile = require('../getTickerFromFile')(input);
+    assert.deepEqual(getTickerFromFile.get(), ['A', 'B', 'C']);
   });
 });

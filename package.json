@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/tomaszlukasik/js-tdd-dojo#readme",
   "devDependencies": {
-    "mocha": "^2.5.3"
+    "mocha": "^2.5.3",
+    "mock-fs": "^3.11.0"
   }
 }
